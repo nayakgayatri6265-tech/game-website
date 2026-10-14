@@ -1,1 +1,253 @@
 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PlayZone - Free Online Games</title>
+<style>
+:root {
+  --bg:#0b1020;--panel:#141b30;--purple:#8b5cf6;
+  --cyan:#22d3ee;--text:#f8fafc;--muted:#9ba8c3;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
+header{position:sticky;top:0;z-index:10;background:#0b1020ee;border-bottom:1px solid #ffffff12;backdrop-filter:blur(12px)}
+.nav{max-width:1150px;margin:auto;padding:17px 20px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.logo{font-size:25px;font-weight:900;color:white}
+.logo span{color:var(--cyan)}
+.nav a{color:var(--muted);text-decoration:none;margin-left:20px;font-size:14px}
+.nav a:hover{color:var(--cyan)}
+.hero{max-width:1150px;margin:auto;padding:70px 20px 45px;display:flex;align-items:center;justify-content:space-between;gap:30px}
+.hero h1{font-size:clamp(38px,6vw,65px);line-height:1.08;margin:14px 0}
+.hero h1 span{background:linear-gradient(90deg,var(--cyan),var(--purple));color:transparent;background-clip:text}
+.hero p{color:var(--muted);font-size:17px;line-height:1.7;max-width:530px}
+.tag{color:var(--cyan);font-size:12px;font-weight:bold;letter-spacing:2px}
+.btn{background:linear-gradient(100deg,var(--purple),#635bff);color:white;padding:13px 20px;border:0;border-radius:10px;font-weight:bold;cursor:pointer}
+.hero-art{font-size:clamp(85px,15vw,160px);filter:drop-shadow(0 0 35px #8b5cf655)}
+main{max-width:1150px;margin:auto;padding:10px 20px 60px}
+.heading{display:flex;align-items:end;justify-content:space-between;gap:10px;margin:25px 0 20px}
+.heading h2{font-size:28px;margin:0 0 7px}
+.heading p{margin:0;color:var(--muted);font-size:14px}
+.games{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.game-card{background:var(--panel);border:1px solid #ffffff12;border-radius:18px;overflow:hidden;transition:.2s}
+.game-card:hover{transform:translateY(-5px);border-color:#8b5cf677}
+.game-art{height:160px;display:grid;place-items:center;font-size:75px;background:radial-gradient(circle at 50% 30%,#31255e,#171d35 70%)}
+.game-info{padding:20px}
+.game-info h3{margin:0 0 9px;font-size:20px}
+.game-info p{color:var(--muted);font-size:14px;line-height:1.6;min-height:44px}
+.game-info button{width:100%;margin-top:8px}
+.game-type{font-size:11px;color:var(--cyan);text-transform:uppercase;letter-spacing:1px}
+footer{border-top:1px solid #ffffff12;text-align:center;padding:25px;color:var(--muted);font-size:13px}
+.modal{position:fixed;inset:0;z-index:20;background:#050815eF;display:none;align-items:center;justify-content:center;padding:15px;overflow-y:auto}
+.modal.show{display:flex}
+.game-window{width:min(520px,100%);background:var(--panel);border:1px solid #ffffff20;border-radius:20px;padding:22px;max-height:95vh;overflow-y:auto}
+.window-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.window-head h2{margin:0;font-size:22px}
+.close{background:#273049;color:white;border:0;border-radius:9px;padding:9px 12px;cursor:pointer}
+.game-content{text-align:center;padding:20px 0 8px}
+.message{color:var(--cyan);min-height:25px;font-weight:bold;margin:12px 0}
+.board{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:min(310px,100%);margin:20px auto}
+.cell{aspect-ratio:1;background:#202944;border:1px solid #ffffff15;border-radius:12px;color:white;font-size:42px;font-weight:bold;cursor:pointer}
+.cell:disabled{cursor:default}
+.options{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.options button{background:#28314b;color:white;border:1px solid #ffffff15;border-radius:10px;padding:13px 16px;cursor:pointer}
+.options button:hover{background:#5140a4}
+.big-number{font-size:42px;font-weight:bold;color:var(--cyan);margin:12px}
+input[type=number]{width:150px;padding:12px;border-radius:10px;background:#0b1020;border:1px solid #414b67;color:white;margin:8px}
+.score{color:var(--muted);font-size:14px}
+@media(max-width:750px){.games{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{padding-top:45px}.hero-art{font-size:85px}.nav a{margin-left:10px}}
+@media(max-width:500px){.games{grid-template-columns:1fr}.game-art{height:135px}.hero{padding-top:35px}.hero-art{font-size:65px}.hero p{font-size:15px}.nav{padding:14px}.nav a{font-size:12px;margin-left:8px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <div class="logo">🎮 Play<span>Zone</span></div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#games">Games</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="home">
+  <div>
+    <div class="tag">YOUR WORLD. YOUR GAME.</div>
+    <h1>Ready to <span>Play?</span></h1>
+    <p>Take a break, challenge your brain and have fun. Discover free browser games you can play instantly on your phone or computer.</p>
+    <button class="btn" onclick="document.getElementById('games').scrollIntoView({behavior:'smooth'})">Explore Games →</button>
+  </div>
+  <div class="hero-art">🕹️</div>
+</section>
+
+<main id="games">
+  <div class="heading">
+    <div><h2>Popular Games</h2><p>Pick a game and start playing!</p></div>
+    <span class="tag">3 FREE GAMES</span>
+  </div>
+
+  <div class="games">
+    <article class="game-card">
+      <div class="game-art">⭕</div>
+      <div class="game-info">
+        <div class="game-type">Strategy · 2 players</div>
+        <h3>Tic-Tac-Toe</h3>
+        <p>Challenge a friend in this classic X and O puzzle.</p>
+        <button class="btn" onclick="openGame('tic')">Play Now →</button>
+      </div>
+    </article>
+    <article class="game-card">
+      <div class="game-art">✊</div>
+      <div class="game-info">
+        <div class="game-type">Arcade · vs computer</div>
+        <h3>Rock Paper Scissors</h3>
+        <p>Make your move and see if you can beat the computer.</p>
+        <button class="btn" onclick="openGame('rps')">Play Now →</button>
+      </div>
+    </article>
+    <article class="game-card">
+      <div class="game-art">🔢</div>
+      <div class="game-info">
+        <div class="game-type">Puzzle · brain teaser</div>
+        <h3>Number Guess</h3>
+        <p>Guess the secret number from 1 to 100 using clues.</p>
+        <button class="btn" onclick="openGame('guess')">Play Now →</button>
+      </div>
+    </article>
+  </div>
+</main>
+
+<footer>© <span id="year"></span> PlayZone · Made for fun. Play responsibly.</footer>
+
+<div class="modal" id="modal" onclick="modalBackground(event)">
+  <div class="game-window">
+    <div class="window-head">
+      <h2 id="gameTitle">Game</h2>
+      <button class="close" onclick="closeGame()">✕ Close</button>
+    </div>
+    <div class="game-content" id="gameContent"></div>
+  </div>
+</div>
+
+<script>
+document.getElementById("year").textContent=new Date().getFullYear();
+
+let currentGame="";
+let ticBoard=Array(9).fill("");
+let ticTurn="X";
+let ticOver=false;
+let rpsScore={you:0,computer:0};
+let secretNumber=0;
+let guesses=0;
+let guessOver=false;
+
+function openGame(game){
+  currentGame=game;
+  document.getElementById("modal").classList.add("show");
+  document.body.style.overflow="hidden";
+  if(game==="tic") renderTic(true);
+  if(game==="rps") renderRps();
+  if(game==="guess") renderGuess(true);
+}
+function closeGame(){
+  document.getElementById("modal").classList.remove("show");
+  document.body.style.overflow="";
+}
+function modalBackground(e){if(e.target.id==="modal")closeGame()}
+
+function renderTic(reset){
+  if(reset){ticBoard=Array(9).fill("");ticTurn="X";ticOver=false;}
+  document.getElementById("gameTitle").textContent="⭕ Tic-Tac-Toe";
+  document.getElementById("gameContent").innerHTML=`
+    <p class="score">Two players · Take turns on the same device</p>
+    <div class="message" id="ticMessage">${ticOver?"Game over!":"Player "+ticTurn+"'s turn"}</div>
+    <div class="board">${ticBoard.map((v,i)=>
+      `<button class="cell" onclick="ticMove(${i})" ${v||ticOver?"disabled":""}>${v}</button>`
+    ).join("")}</div>
+    <button class="btn" onclick="renderTic(true)">↻ Restart Game</button>`;
+}
+function ticMove(i){
+  if(ticOver||ticBoard[i])return;
+  ticBoard[i]=ticTurn;
+  const lines=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+  const winner=lines.some(line=>line.every(i=>ticBoard[i]===ticTurn));
+  if(winner)ticOver=true;
+  else if(ticBoard.every(Boolean))ticOver=true;
+  else ticTurn=ticTurn==="X"?"O":"X";
+  renderTic(false);
+  if(winner)document.getElementById("ticMessage").textContent="🎉 Player "+(ticTurn)+" wins!";
+  else if(ticOver)document.getElementById("ticMessage").textContent="🤝 It's a draw!";
+}
+
+function renderRps(){
+  document.getElementById("gameTitle").textContent="✊ Rock Paper Scissors";
+  document.getElementById("gameContent").innerHTML=`
+    <p>Choose your move!</p>
+    <div class="options">
+      <button onclick="playRps('Rock')">✊<br>Rock</button>
+      <button onclick="playRps('Paper')">✋<br>Paper</button>
+      <button onclick="playRps('Scissors')">✌️<br>Scissors</button>
+    </div>
+    <div class="message" id="rpsMessage">Ready? Make your move.</div>
+    <div class="score" id="rpsScore">You ${rpsScore.you} — ${rpsScore.computer} Computer</div>
+    <br><button class="btn" onclick="rpsScore={you:0,computer:0};renderRps()">↻ Reset Score</button>`;
+}
+function playRps(choice){
+  const choices=["Rock","Paper","Scissors"];
+  const computer=choices[Math.floor(Math.random()*3)];
+  let result;
+  if(choice===computer)result="It's a tie!";
+  else if((choice==="Rock"&&computer==="Scissors")||
+          (choice==="Paper"&&computer==="Rock")||
+          (choice==="Scissors"&&computer==="Paper")){
+    result="🎉 You win this round!";rpsScore.you++;
+  }else{result="💻 Computer wins this round!";rpsScore.computer++;}
+  document.getElementById("rpsMessage").textContent=
+    `${choice} vs ${computer} — ${result}`;
+  document.getElementById("rpsScore").textContent=
+    `You ${rpsScore.you} — ${rpsScore.computer} Computer`;
+}
+
+function renderGuess(reset){
+  if(reset){secretNumber=Math.floor(Math.random()*100)+1;guesses=0;guessOver=false;}
+  document.getElementById("gameTitle").textContent="🔢 Number Guess";
+  document.getElementById("gameContent").innerHTML=`
+    <p>I'm thinking of a number between 1 and 100.</p>
+    <div class="big-number">? ? ?</div>
+    <form onsubmit="submitGuess(event)">
+      <input id="guessInput" type="number" min="1" max="100" required placeholder="1 to 100" ${guessOver?"disabled":""}>
+      <button class="btn" ${guessOver?"disabled":""}>Guess!</button>
+    </form>
+    <div class="message" id="guessMessage">${guessOver?"You found it!":"Enter your guess to begin."}</div>
+    <div class="score" id="guessCount">Attempts: ${guesses}</div>
+    <br><button class="btn" onclick="renderGuess(true)">↻ New Number</button>`;
+}
+function submitGuess(e){
+  e.preventDefault();
+  if(guessOver)return;
+  const input=document.getElementById("guessInput");
+  const value=Number(input.value);
+  if(!Number.isInteger(value)||value<1||value>100){
+    document.getElementById("guessMessage").textContent="Enter a number from 1 to 100.";
+    return;
+  }
+  guesses++;
+  if(value===secretNumber){
+    guessOver=true;
+    document.getElementById("guessMessage").textContent=
+      `🎉 Correct! The number was ${secretNumber}. Attempts: ${guesses}`;
+    input.disabled=true;
+    e.target.querySelector("button").disabled=true;
+  }else{
+    document.getElementById("guessMessage").textContent=
+      value<secretNumber?"📈 Too low! Try a higher number.":"📉 Too high! Try a lower number.";
+    input.value="";
+    input.focus();
+  }
+  document.getElementById("guessCount").textContent="Attempts: "+guesses;
+}
+</script>
+</body>
+</html>
